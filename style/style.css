@@ -1,0 +1,80 @@
+@font-face {
+    font-family: BungeeShade-Regular;
+    src: url('../fonts/Bungee_Shade/BungeeShade-Regular.ttf') format(truetype);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #025464;
+    overflow: hidden;
+}
+
+#rnbo-root {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#rnbo-presets {
+    display: flex;
+}
+
+button {
+    margin: 0;
+    padding: 0;
+    width: 12.5vw;
+    height: 9vh;
+    background-color: transparent;
+    border: 2px solid #E57C23;
+    font-family: BungeeShade-Regular;
+    font-size: 5vh;
+    text-align: center;
+    color: #E57C23;
+    transition: 0.5s ease-in-out;
+}
+
+button:hover {
+    filter: drop-shadow(12px 12px 12px);
+}
+
+#rnbo-parameter-sliders {
+    display: flex;
+    flex-direction: column;
+}
+
+#rnbo-parameter-sliders > div {
+    display: flex;
+}
+
+#rnbo-parameter-sliders > div > input:first-of-type {
+    flex-grow: 1;
+}
+
+.slider-container {
+    position: relative;
+    min-height: 70px;
+    width: auto;
+    margin: 3px;
+}
+
+input[type="range"] {
+    appearance: none; /* -webkit-appearance */
+    width: auto;
+    height: 13vh;
+    background-color: #025464;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 2px;
+    height: 13vh;
+    background-color: #E57C23;
+    cursor: grab;
+    z-index: 3;
+}
