@@ -1,6 +1,7 @@
+// http://127.0.0.1:3000/index.html
 const onOff = document.getElementById('audio');
+const icon = document.querySelector('.fa-volume-high');
 const saveButton = document.getElementById('save');
-const eraseButton = document.getElementById('erase');
 const buttonOne = document.getElementById('one');
 const buttonTwo = document.getElementById('two');
 const buttonThree = document.getElementById('three');
@@ -8,8 +9,87 @@ const buttonFour = document.getElementById('four');
 const buttonFive = document.getElementById('five');
 
 let num = 0;
-let myLocalParams = [];
+let toggleOne = 0;
+let toggleTwo = 0;
+let toggleThree = 0;
+let toggleFour = 0;
+let toggleFive = 0;
 
+let myLocalParams = [];
+let theParams = [
+    { // botón 1
+        'density': 20,
+        'grain_size': 311.8,
+        'pitch': 0.6,
+        'position': 0.08,
+        'spray': 0.01,
+        'spread':0.442,
+        'stereo_spread': 0.16
+    },
+    { // botón 2
+        'density': 8,
+        'grain_size': 144.8,
+        'pitch': -34,
+        'position': 0.08,
+        'spray': 0.01,
+        'spread':0.442,
+        'stereo_spread': 0.15
+    },
+    { // botón 3
+        'density': 55,
+        'grain_size': 200,
+        'pitch': 34,
+        'position': 0.08,
+        'spray': 0.01,
+        'spread':0.442,
+        'stereo_spread': 0.14
+    },
+    { // botón 4
+        'density': 89,
+        'grain_size': 400,
+        'pitch': -13,
+        'position': 0.08,
+        'spray': 0.01,
+        'spread':0.442,
+        'stereo_spread': 0.13
+    },
+    { // botón 5
+        'density': 5,
+        'grain_size': 144,
+        'pitch': 21,
+        'position': 0.08,
+        'spray': 0.01,
+        'spread':0.442,
+        'stereo_spread': 0.12
+    }
+];
+
+// local storage functionality
+document.addEventListener('DOMContentLoaded', () => {
+    displayLocalStorageParams();
+})
+
+const displayLocalStorageParams = () => {
+    myLocalParams = JSON.parse(localStorage.getItem('theParams'));
+
+    for (let i = 0; i < theParams.length; i++) {
+        theParams[i].density = myLocalParams[i].density;
+        theParams[i].grain_size = myLocalParams[i].grain_size;
+        theParams[i].pitch = myLocalParams[i].pitch;
+        theParams[i].position = myLocalParams[i].position;
+        theParams[i].spray = myLocalParams[i].spray;
+        theParams[i].spread = myLocalParams[i].spread;
+        theParams[i].stereo_spread = myLocalParams[i].stereo_spread;
+        console.log(theParams[i].stereo_spread = myLocalParams[i].stereo_spread);
+    }
+   console.log(myLocalParams);
+}
+
+const myLocalStorageParams = () => {
+    localStorage.setItem('theParams', JSON.stringify(theParams));
+}
+
+// audio context setup
 async function setup() {
     const patchExportURL = "export/patch.export.json";
 
@@ -86,13 +166,23 @@ async function setup() {
     // (Optional) Automatically create sliders for the device parameters
     makeSliders(device);
 
+    // BOTONES
+    buttonsParams(device);
+
+    // GUARDAR LS
+    saveLocalStorage(device);
+
     onOff.onclick = () => {
         if (num == 0) {
             context.resume();
             num = 1;
+            icon.classList.remove('fa-volume-high');
+            icon.classList.add('fa-volume-xmark');
         } else if (num == 1) {
             context.suspend();
             num = 0;
+            icon.classList.remove('fa-volume-xmark');
+            icon.classList.add('fa-volume-high');
         }
     }
 
@@ -135,7 +225,7 @@ function makeSliders(device) {
         //if (param.id.includes("/")) return;
 
         // Create a label, an input slider and a value display
-        let label = document.createElement("label");
+        // let label = document.createElement("label");
         let slider = document.createElement("input");
         let text = document.createElement("input");
         let sliderContainer = document.createElement("div");
@@ -217,15 +307,203 @@ function makeSliders(device) {
     });
 }
 
+// GUARDAR LS
+const saveLocalStorage = (device) => {
+    saveButton.addEventListener('click', () => {
+        saveButton.classList.add('selected');
+
+        if (toggleOne == 1) {
+            theParams[0].density = device.parameters[0].value;
+            theParams[0].grain_size = device.parameters[1].value;
+            theParams[0].pitch = device.parameters[2].value;
+            theParams[0].position = device.parameters[3].value;
+            theParams[0].spray = device.parameters[4].value;
+            theParams[0].spread = device.parameters[5].value;
+            theParams[0].stereo_spread = device.parameters[6].value;
+
+            myLocalStorageParams();
+        } else if (toggleTwo == 1) {
+            theParams[1].density = device.parameters[0].value;
+            theParams[1].grain_size = device.parameters[1].value;
+            theParams[1].pitch = device.parameters[2].value;
+            theParams[1].position = device.parameters[3].value;
+            theParams[1].spray = device.parameters[4].value;
+            theParams[1].spread = device.parameters[5].value;
+            theParams[1].stereo_spread = device.parameters[6].value;
+
+            myLocalStorageParams();
+        } else if (toggleThree == 1) {
+            theParams[2].density = device.parameters[0].value;
+            theParams[2].grain_size = device.parameters[1].value;
+            theParams[2].pitch = device.parameters[2].value;
+            theParams[2].position = device.parameters[3].value;
+            theParams[2].spray = device.parameters[4].value;
+            theParams[2].spread = device.parameters[5].value;
+            theParams[2].stereo_spread = device.parameters[6].value;
+
+            myLocalStorageParams();
+        } else if (toggleFour == 1) {
+            theParams[3].density = device.parameters[0].value;
+            theParams[3].grain_size = device.parameters[1].value;
+            theParams[3].pitch = device.parameters[2].value;
+            theParams[3].position = device.parameters[3].value;
+            theParams[3].spray = device.parameters[4].value;
+            theParams[3].spread = device.parameters[5].value;
+            theParams[3].stereo_spread = device.parameters[6].value;
+
+            myLocalStorageParams();
+        } else if (toggleFive == 1) {
+            theParams[4].density = device.parameters[0].value;
+            theParams[4].grain_size = device.parameters[1].value;
+            theParams[4].pitch = device.parameters[2].value;
+            theParams[4].position = device.parameters[3].value;
+            theParams[4].spray = device.parameters[4].value;
+            theParams[4].spread = device.parameters[5].value;
+            theParams[4].stereo_spread = device.parameters[6].value;
+
+            myLocalStorageParams();
+        }
+
+        setTimeout(() => {
+            saveButton.classList.remove('selected');
+        }, 3000);
+    })
+}
+
+// BOTONES
+const buttonsParams = (device) => {
+    buttonOne.addEventListener('click', () => {
+        if (toggleOne == 0) {
+            toggleOne = 1;
+            toggleTwo = 0;
+            toggleThree = 0;
+            toggleFour = 0;
+            toggleFive = 0;
+            buttonOne.classList.add('selected');
+            buttonTwo.classList.remove('selected');
+            buttonThree.classList.remove('selected');
+            buttonFour.classList.remove('selected');
+            buttonFive.classList.remove('selected');
+
+            device.parameters[0].value = theParams[0].density;
+            device.parameters[1].value = theParams[0].grain_size;
+            device.parameters[2].value = theParams[0].pitch;
+            device.parameters[3].value = theParams[0].position;
+            device.parameters[4].value = theParams[0].spray;
+            device.parameters[5].value = theParams[0].spread;
+            device.parameters[6].value = theParams[0].stereo_spread;
+        } else {
+            toggleOne = 0;
+            buttonOne.classList.remove('selected');
+        }
+    })
+
+    buttonTwo.addEventListener('click', () => {
+        if (toggleTwo == 0) {
+            toggleTwo = 1;
+            toggleOne = 0;
+            toggleThree = 0;
+            toggleFour = 0;
+            toggleFive = 0;
+            buttonTwo.classList.add('selected');
+            buttonOne.classList.remove('selected');
+            buttonThree.classList.remove('selected');
+            buttonFour.classList.remove('selected');
+            buttonFive.classList.remove('selected');
+
+            device.parameters[0].value = theParams[1].density;
+            device.parameters[1].value = theParams[1].grain_size;
+            device.parameters[2].value = theParams[1].pitch;
+            device.parameters[3].value = theParams[1].position;
+            device.parameters[4].value = theParams[1].spray;
+            device.parameters[5].value = theParams[1].spread;
+            device.parameters[6].value = theParams[1].stereo_spread;
+        } else {
+            toggleTwo = 0;
+            buttonTwo.classList.remove('selected');
+        }
+    })
+
+    buttonThree.addEventListener('click', () => {
+        if (toggleThree == 0) {
+            toggleThree = 1;
+            toggleOne = 0;
+            toggleTwo = 0;
+            toggleFour = 0;
+            toggleFive = 0;
+            buttonThree.classList.add('selected');
+            buttonOne.classList.remove('selected');
+            buttonTwo.classList.remove('selected');
+            buttonFour.classList.remove('selected');
+            buttonFive.classList.remove('selected');
+
+            device.parameters[0].value = theParams[2].density;
+            device.parameters[1].value = theParams[2].grain_size;
+            device.parameters[2].value = theParams[2].pitch;
+            device.parameters[3].value = theParams[2].position;
+            device.parameters[4].value = theParams[2].spray;
+            device.parameters[5].value = theParams[2].spread;
+            device.parameters[6].value = theParams[2].stereo_spread;
+        } else {
+            toggleThree = 0;
+            buttonThree.classList.remove('selected');
+        }
+    })
+
+    buttonFour.addEventListener('click', () => {
+        if (toggleFour == 0) {
+            toggleFour = 1;
+            toggleOne = 0;
+            toggleTwo = 0;
+            toggleThree = 0;
+            toggleFive = 0;
+            buttonFour.classList.add('selected');
+            buttonOne.classList.remove('selected');
+            buttonTwo.classList.remove('selected');
+            buttonThree.classList.remove('selected');
+            buttonFive.classList.remove('selected');
+
+            device.parameters[0].value = theParams[3].density;
+            device.parameters[1].value = theParams[3].grain_size;
+            device.parameters[2].value = theParams[3].pitch;
+            device.parameters[3].value = theParams[3].position;
+            device.parameters[4].value = theParams[3].spray;
+            device.parameters[5].value = theParams[3].spread;
+            device.parameters[6].value = theParams[3].stereo_spread;
+        } else {
+            toggleFour = 0;
+            buttonFour.classList.remove('selected');
+        }
+    })
+
+    buttonFive.addEventListener('click', () => {
+        if (toggleFive == 0) {
+            toggleFive = 1;
+            toggleOne = 0;
+            toggleTwo = 0;
+            toggleThree = 0;
+            toggleFour = 0
+            buttonFive.classList.add('selected');
+            buttonOne.classList.remove('selected');
+            buttonTwo.classList.remove('selected');
+            buttonThree.classList.remove('selected');
+            buttonFour.classList.remove('selected');
+
+            device.parameters[0].value = theParams[4].density;
+            device.parameters[1].value = theParams[4].grain_size;
+            device.parameters[2].value = theParams[4].pitch;
+            device.parameters[3].value = theParams[4].position;
+            device.parameters[4].value = theParams[4].spray;
+            device.parameters[5].value = theParams[4].spread;
+            device.parameters[6].value = theParams[4].stereo_spread;
+        } else {
+            toggleFive = 0;
+            buttonFive.classList.remove('selected');
+        }
+    })
+}
+
 setup();
-
-/*
-    document.body.onclick = () => {
-        context.resume();
-    }
-*/
-
-
 
          /* density grain_size pitch position spray spread stereo_spread --------------------------------
          if (slider.id.match('density')) {

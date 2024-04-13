@@ -28,7 +28,7 @@ body {
 button {
     margin: 0;
     padding: 0;
-    width: 12.5vw;
+    width: 14vw;
     height: 9vh;
     background-color: transparent;
     border: 2px solid #E57C23;
@@ -41,6 +41,18 @@ button {
 
 button:hover {
     filter: drop-shadow(12px 12px 12px);
+}
+
+#audio {
+    width: 15vw;
+}
+
+#save {
+    width: 15vw;
+}
+
+.selected {
+    border: 8px solid;
 }
 
 #rnbo-parameter-sliders {
