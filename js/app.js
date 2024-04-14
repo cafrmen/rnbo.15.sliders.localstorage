@@ -80,9 +80,7 @@ const displayLocalStorageParams = () => {
         theParams[i].spray = myLocalParams[i].spray;
         theParams[i].spread = myLocalParams[i].spread;
         theParams[i].stereo_spread = myLocalParams[i].stereo_spread;
-        console.log(theParams[i].stereo_spread = myLocalParams[i].stereo_spread);
     }
-   console.log(myLocalParams);
 }
 
 const myLocalStorageParams = () => {
