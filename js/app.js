@@ -1,4 +1,5 @@
 // http://127.0.0.1:3000/index.html
+const r = document.querySelector(':root');
 const onOff = document.getElementById('audio');
 const icon = document.querySelector('.fa-volume-high');
 const saveButton = document.getElementById('save');
@@ -176,11 +177,15 @@ async function setup() {
             num = 1;
             icon.classList.remove('fa-volume-high');
             icon.classList.add('fa-volume-xmark');
+            r.style.setProperty('--fondo', '#000');
+            r.style.setProperty('--lineas', '#FFF');
         } else if (num == 1) {
             context.suspend();
             num = 0;
             icon.classList.remove('fa-volume-xmark');
             icon.classList.add('fa-volume-high');
+            r.style.setProperty('--fondo', '#FFF');
+            r.style.setProperty('--lineas', '#000');
         }
     }
 
@@ -390,6 +395,8 @@ const buttonsParams = (device) => {
             device.parameters[4].value = theParams[0].spray;
             device.parameters[5].value = theParams[0].spread;
             device.parameters[6].value = theParams[0].stereo_spread;
+
+            colors();
         } else {
             toggleOne = 0;
             buttonOne.classList.remove('selected');
@@ -416,6 +423,8 @@ const buttonsParams = (device) => {
             device.parameters[4].value = theParams[1].spray;
             device.parameters[5].value = theParams[1].spread;
             device.parameters[6].value = theParams[1].stereo_spread;
+
+            colors();
         } else {
             toggleTwo = 0;
             buttonTwo.classList.remove('selected');
@@ -442,6 +451,8 @@ const buttonsParams = (device) => {
             device.parameters[4].value = theParams[2].spray;
             device.parameters[5].value = theParams[2].spread;
             device.parameters[6].value = theParams[2].stereo_spread;
+
+            colors();
         } else {
             toggleThree = 0;
             buttonThree.classList.remove('selected');
@@ -468,6 +479,8 @@ const buttonsParams = (device) => {
             device.parameters[4].value = theParams[3].spray;
             device.parameters[5].value = theParams[3].spread;
             device.parameters[6].value = theParams[3].stereo_spread;
+
+            colors();
         } else {
             toggleFour = 0;
             buttonFour.classList.remove('selected');
@@ -494,11 +507,28 @@ const buttonsParams = (device) => {
             device.parameters[4].value = theParams[4].spray;
             device.parameters[5].value = theParams[4].spread;
             device.parameters[6].value = theParams[4].stereo_spread;
+
+            colors();
         } else {
             toggleFive = 0;
             buttonFive.classList.remove('selected');
         }
     })
+}
+
+// COLORS
+const colors = () => {
+    if (toggleOne == 1 && num == 1) {
+        r.style.setProperty('--lineas', '#BFF6C3');
+    } else if (toggleTwo == 1 && num == 1) {
+        r.style.setProperty('--lineas', '#E5BEEC');
+    } else if (toggleThree == 1 && num == 1) {
+        r.style.setProperty('--lineas', '#B6FFFA');
+    } else if (toggleFour == 1 && num == 1) {
+        r.style.setProperty('--lineas', '#FFD93D');
+    } else if (toggleFive == 1 && num == 1) {
+        r.style.setProperty('--lineas', '#FF9F66');
+    }
 }
 
 setup();

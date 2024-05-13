@@ -1,3 +1,8 @@
+:root {
+    --fondo: #FFF;
+    --lineas: #121212;
+}
+
 @font-face {
     font-family: BungeeShade-Regular;
     src: url('../fonts/Bungee_Shade/BungeeShade-Regular.ttf') format(truetype);
@@ -10,7 +15,7 @@
 }
 
 body {
-    background-color: #025464;
+    background-color: var(--fondo);
     overflow: hidden;
 }
 
@@ -31,11 +36,11 @@ button {
     width: 14vw;
     height: 9vh;
     background-color: transparent;
-    border: 2px solid #E57C23;
+    border: 2px solid var(--lineas);
     font-family: BungeeShade-Regular;
     font-size: 5vh;
     text-align: center;
-    color: #E57C23;
+    color: var(--lineas);
     transition: 0.5s ease-in-out;
 }
 
@@ -79,14 +84,19 @@ input[type="range"] {
     appearance: none; /* -webkit-appearance */
     width: auto;
     height: 13vh;
-    background-color: #025464;
+    background-color: var(--fondo);
 }
 
 input[type="range"]::-webkit-slider-thumb {
     appearance: none;
     width: 3px;
     height: 13vh;
-    background-color: #E57C23;
+    background-color: var(--lineas);
     cursor: grab;
     z-index: 3;
 }
+
+/*
+    --fondo: #025464;
+    --lineas: #E57C23;
+*/
